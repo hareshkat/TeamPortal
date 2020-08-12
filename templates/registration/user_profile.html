@@ -1,0 +1,144 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} profile {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title text-center">My Profile</h4>
+                </div>
+                <div class="card-body">
+                  <form action="{% url 'profile' %}" method="post">
+                    {% csrf_token %}
+                    <div class="row" >
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">UserID</label>
+                          <input type="text" class="form-control" disabled value="{{ request.user.id }}">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Status</label>
+                          {% if status == 1 %}
+                          <input type="text" disabled class="form-control" value="Active">
+                          {% else %}
+                          <input type="text" disabled class="form-control" value="Block">
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Username</label>
+                          <input type="text" disabled class="form-control" value="{{ request.user.username }}">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Email</label>
+                          <input type="enail" disabled class="form-control" value="{{ request.user.email }}">
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Fist Name</label>
+                          <input type="text" disabled class="form-control" value="{{ request.user.first_name }}">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Last Name</label>
+                          <input type="text" disabled class="form-control" value="{{ request.user.last_name }}">
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Employee Code</label>
+                          <input type="text" disabled class="form-control" value="{{ emp_id }}">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Contact Number</label>
+                          <input type="text" disabled class="form-control" value="{{ contact_no }}">
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Gender</label>
+                          {% if gender == 'M' %}
+                          <input type="text" disabled class="form-control" value="Male">
+                          {% else %}
+                          <input type="text" disabled class="form-control" value="Female">
+                          {% endif %}
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Date of birth</label>
+                          <input type="text" disabled class="form-control" value="{{ dob|date:'d M' }}">
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">About Me</label>
+                            <textarea class="form-control" name="about_me" rows="3" maxlength="200">{{ aboutme }}</textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card card-profile" style="background-color: #bfd6eb;">
+                <div class="card-avatar">
+                    {% if gender == 'M' %}
+                    <img class="img" src="/static/assets/img/male.png" />
+                    {% else %}
+                    <img class="img" src="/static/assets/img/female.png" />
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                  <h4 class="card-title">
+                    <strong>{{ request.user.get_full_name }}</strong>
+                  </h4>
+                  <h6 class="card-category text-gray">
+                    {{ request.user.email }}
+                  </h6>
+                  <h6 class="card-category text-gray">
+                    {{ emp_id }}, {{ dob|date:'d M' }}
+                  </h6>
+                  <p class="card-description">{{ aboutme|default_if_none:"" }}</p>
+                  <!-- <a href="#" class="btn btn-info btn-round">Follow</a> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

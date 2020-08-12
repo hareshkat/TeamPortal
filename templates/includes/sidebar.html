@@ -1,0 +1,58 @@
+    <div class="sidebar" data-color="purple" data-background-color="black" data-image="/static/assets/img/sidebar-1.jpg">
+      <div class="logo">
+        <a href="{% url 'home' %}" class="simple-text logo-normal">
+          JIO - LMS
+        </a>
+      </div>
+      {% if user.is_authenticated %}
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item {% if page_name == 'home' %} active {% endif %}">
+            <a class="nav-link" href="{% url 'home' %}">
+              <i class="material-icons">home</i>
+              <p>Home</p>
+            </a>
+          </li>
+          <li class="nav-item {% if page_name == 'members' %} active {% endif %}">
+            <a class="nav-link" href="{% url 'team_member' %}">
+              <i class="material-icons">group</i>
+              <p>Team</p>
+            </a>
+          </li>
+          <li class="nav-item {% if page_name == 'useful_link' %} active {% endif %}">
+            <a class="nav-link" href="{% url 'usefullink' %}">
+              <i class="material-icons">link</i>
+              <p>Userful Links</p>
+            </a>
+          </li>
+          <li class="nav-item {% if page_name == 'contribution' %} active {% endif %}">
+            <a class="nav-link" href="{% url 'team_contri' %}">
+              <i class="fa fa-rupee"></i>
+              <p>Contribution</p>
+            </a>
+          </li>
+          <li class="nav-item {% if page_name == 'gallery' %} active {% endif %}">
+            {% now "Y" as today_str %}
+            <a class="nav-link" href="{% url 'gallery' y=today_str %}">
+              <i class="material-icons">photo_library</i>
+              <p>Gallery</p>
+            </a>
+          </li>
+          {% if request.user.is_staff %}
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/isr_tracking/isrtracking/" target="_blank">
+              <i class="material-icons">pending_actions</i>
+              <p>ISR</p>
+            </a>
+          </li>
+          {% endif %}
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'logout' %}" >
+              <i class="material-icons">directions_run</i>
+              <p>Logout</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+      {% endif %}
+    </div>

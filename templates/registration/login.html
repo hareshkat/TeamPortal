@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>LMS - Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+      body:before{
+      content: '';
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: rgb(2,0,36);
+      background: linear-gradient(90deg, rgb(6 40 81) 0%, rgb(22 169 166) 100%, rgb(0 212 255) 100%);
+      }
+      .form-control {
+      min-height: 41px;
+      background: #fff;
+      box-shadow: none !important;
+      border-color: #e3e3e3;
+      }
+      .form-control:focus {
+      border-color: #70c5c0;
+      }
+      .form-control, .btn {
+      border-radius: 5px;
+      }
+      .login-form {
+      width: 350px;
+      margin: 0 auto;
+      padding: 100px 0 30px;
+      }
+      .login-form form {
+      color: #7a7a7a;
+      border-radius: 2px;
+      margin-bottom: 15px;
+      font-size: 13px;
+      background: #ececec;
+      padding: 30px;
+      position: relative;
+      background: rgba(0, 0, 0, 0.2);
+      box-shadow: -20px 20px 10px rgba(1, 0, 0, 0.6);
+      }
+      .login-form h2 {
+      font-size: 22px;
+      margin: 35px 0 25px;
+      }
+      .login-form input[type="checkbox"] {
+      position: relative;
+      top: 1px;
+      }
+      .login-form .btn, .login-form .btn:active {
+      font-size: 16px;
+      font-weight: bold;
+      background: #28af8a !important;
+      border: none;
+      margin-bottom: 20px;
+      }
+      .login-form .btn:hover, .login-form .btn:focus {
+      background: #1a8467 !important;
+      }
+      .login-form a {
+      color: #fff;
+      text-decoration: underline;
+      }
+      .login-form a:hover {
+      text-decoration: none;
+      }
+      .login-form form a {
+      color: #7a7a7a;
+      text-decoration: none;
+      }
+      .login-form form a:hover {
+      text-decoration: underline;
+      }
+      .login-form .bottom-action {
+      font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-form">
+      <form action="{% url 'login' %}" method="post" style="border-radius: 20px;">
+        <div>
+          <img class="mx-auto d-block" src="/static/assets/img/jio.png">
+        </div>
+        <h2 class="text-center" style="color:wheat;">LMS Member login</h2>
+        {% csrf_token %}
+        {% if msg %}
+        <p style="color: red;">{{ msg }}</p>
+        {% endif %}
+        <div class="form-group">
+          <input type="text" class="form-control" name="username" placeholder="DomainID" required="required">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+        </div>
+<!--         <div class="bottom-action clearfix">
+          <label class="float-left form-check-label"><input type="checkbox"> Remember me</label>
+          <a href="#" class="float-right">Forgot Password?</a>
+        </div> -->
+      </form>
+    </div>
+  </body>
+</html>

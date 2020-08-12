@@ -1,0 +1,235 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Contribution {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<!-- <script src='https://kit.fontawesome.com/a076d05399.js'></script> -->
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="card">
+  <div class="card-header card-header-primary text-center" style="background: linear-gradient(60deg, #911fa5, #693516);">
+    <h4 class="card-title" >Total Expenditure</h4>
+    <p class="card-category">This is overall income and expenses till this month.</p>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="alert alert-success alert-with-icon">
+          <i class="material-icons" data-notify="icon">account_balance_wallet</i>
+          <span style="font-size: large;">Income | {{ income }}</span>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="alert alert-danger alert-with-icon">
+          <i class="material-icons" data-notify="icon">swap_horizontal_circle</i>
+          <span style="font-size: large;">Expenses | {{ total_expense }}</span>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="alert alert-warning alert-with-icon">
+          <i class="fa fa-rupee" data-notify="icon"></i>
+          <span style="font-size: large;">Balance | {{ balance }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</br>
+
+<h3 class="text-center text-primary" style="font-family: auto">Monthly Expenditure</h3>
+<hr />
+
+<div class="card">
+  <div class="card-header card-header-primary" style="background: linear-gradient(60deg, #058a9a, #083d44) !important;">
+    <h4 class="card-title text-center">
+      <a href="/{{ pre_link }}"><i style="float: left;" class="material-icons">arrow_back_ios</i></a>
+      <span >{{ date }}</span>
+      {% if next_link %}
+      <a href="/{{ next_link }}"><i style="float: right;" class="material-icons">arrow_forward_ios</i></a>
+      {% else %}
+      <a><i style="float: right;" class="material-icons">arrow_forward_ios</i></a>
+      {% endif %}
+    </h4>
+  </div>
+  <div class="card-body">
+    <div class="row text-center" style="font-size: large;">
+      <div class="col-lg-4">
+        <strong class="text-success">Income | {{ mon_contri }}</strong>
+      </div>
+      <div class="col-lg-4">
+        <strong class="text-danger">Expenses | {{ mon_expense }}</strong>
+      </div>
+      <div class="col-lg-4">
+        <strong class="text-warning">Balance | {{ mon_balance }}</strong>
+      </div>
+    </div>
+    <div class="row">
+      <div class="card">
+        <div class="card-header card-header-tabs card-header-primary">
+          <div class="nav-tabs-navigation text-center">
+            <div class="nav-tabs-wrapper">
+              <span class="nav-tabs-title">Records :</span>
+              <ul class="nav nav-tabs" data-tabs="tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#contribution" data-toggle="tab">
+                    <i class="material-icons">people</i> Contribution
+                    <div class="ripple-container"></div>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#expense" data-toggle="tab">
+                    <i class="material-icons" data-notify="icon">swap_horizontal_circle</i> Expense
+                    <div class="ripple-container"></div>
+                  </a>
+                </li>
+                {% if request.user.is_superuser %}
+                <li class="nav-item">
+                  <a class="nav-link" href="#contributors" data-toggle="tab">
+                    <i class="material-icons">people</i> Contributors List
+                    <div class="ripple-container"></div>
+                  </a>
+                </li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="tab-content">
+            <div class="tab-pane active" id="contribution">
+              {% if is_contri_paid == True %}
+              <h5 class="text-success text-center"><strong>Great! You have paid the {{ date }} month's contribution.</strong>
+              </h5>
+              {% else %}
+              <h5 class="text-warning text-center"><strong>Your contribution for the month {{ date }} is pending !</strong></h5>
+              {% endif %}
+            <br>
+            <p class="text-info">Payment history</p>
+            {% if monthly_contri_history %}
+              <table class="table">
+                <thead class=" text-primary">
+                  <th>Contribution Month</th>
+                  <th>Amount</th>
+                  <th>Paid date</th>
+                  <th>Status</th>
+                </thead>
+                <tbody>
+                  {% for d in monthly_contri_history|slice:"::-1" %}
+                  <tr>
+                    <td><strong>{{ d.date|date:'M-Y' }}</strong>
+                    </td>
+                    <td><i class="fa fa-rupee" data-notify="icon"></i>
+                      {{ d.amount }}
+                    </td>
+                    {% if d.paid_on %}
+                    <td>{{ d.paid_on }}</td>
+                    {% else %}
+                    <td>-----</td>
+                    {% endif %}
+                    {% if d.paid == True %}
+                    <td class="td-actions">
+                      <button class="btn btn-success">
+                      <i class="fa fa-check-square"></i>
+                      <span> Paid</span>
+                      </button>
+                    </td>
+                    {% else %}
+                    <td class="td-actions">
+                      <button class="btn btn-warning">
+                      <i class="fa fa-exclamation-circle" data-notify="icon"></i>
+                      <span> Pending</span>
+                      </button>
+                    </td>
+                    {% endif %}
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% endif %}
+            </div>
+            <div class="tab-pane" id="expense">
+              {% if plot %}
+              {{ plot|safe }}
+              {% endif %}
+              {% if expense %}
+              <table class="table">
+                <thead class=" text-primary">
+                  <th>Date</th>
+                  <th>Expense Type</th>
+                  <th>Event</th>
+                  <th>Who's</th>
+                  <th>Amount</th>
+                </thead>
+                <tbody>
+                  {%  for e in expense %}
+                  <tr>
+                    <td><strong>{{ e.date }}</strong></td>
+                    <td><strong>{{ e.expense_type }}</strong></td>
+                    <td><strong>{{ e.event }}</strong></td>
+                    <td><strong>{{ e.whos }}</strong></td>
+                    <td><i class="fa fa-rupee" data-notify="icon"></i>
+                      <strong>{{ e.amount }}</strong>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+              <h5 class="text-center text-warning"><strong>No expense record found for the month {{ date }} !</strong></h5>
+              {% endif %}
+            </div>
+            {% if request.user.is_superuser %}
+            <div class="tab-pane" id="contributors">
+              {% if monthly_contribution %}
+                <form action="{% url 'team_contribution' m=m y=y %}" method="post">{% csrf_token %}
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>User</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                    </thead>
+                    <tbody>{% for d in monthly_contribution %}
+                      <tr>
+                        <td><strong>{{ d.name }}</strong>
+                        </td>
+                        <td><i class="fa fa-rupee" data-notify="icon"></i>
+                          <strong>{{ d.amount }}</strong>
+                        </td>{% if d.paid == True %}
+                        <td class="td-actions">
+                          <div class="btn btn-success"> <i class="fa fa-check-square"></i>
+                            <span> Paid</span>
+                          </div>
+                        </td>{% else %}
+                        <td class="td-actions">
+                          <!-- <input type="checkbox" name="{{ d.contri_id }}"> -->
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="" name="{{ d.contri_id }}"> <span class="form-check-sign">
+                                            <span class="check"></span>
+                              </span>
+                            </label>
+                          </div>
+                        </td>{% endif %}</tr>{% endfor %}</tbody>
+                  </table>
+                  <button class="btn btn-success">Update</button>
+                </form>
+              {% else %}
+              <h5 class="text-center text-warning"><strong>Contribution list for {{ date }} month is not created !</strong></h5>
+              {% endif %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+{% endblock javascripts %}

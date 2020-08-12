@@ -1,0 +1,57 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Team {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<h2 class="text-center text-primary" style="font-family: auto">Team Members</h2>
+<hr />
+{% if data %}
+<div class="row">
+  {% for d in data %}
+  <div class="col-lg-6 col-md-6">
+    <div class="card">
+      <div class="row">
+        <div class="col-md-3">
+          {% if d.gender == "M" %}
+          <img src="/static/assets/img/male.png" style="max-width: 100%;margin: 9px 0px 0px 8px;" class="rounded">
+          {% else %}
+          <img src="/static/assets/img/female.png" style="max-width: 100%;margin: 9px 0px 0px 8px;" class="rounded">
+          {% endif %}
+        </div>
+        <div class="col-md-9">
+          <div class="card-category">
+            <h4><strong>{{ d.name }}</strong></h4>
+            <div class="row">
+            <div class="col-md-4">
+              <i class="material-icons">contacts</i>{{ d.emp_id }}
+            </div>
+            <div class="col-md-8">
+              <i class="material-icons">email</i>{{ d.email }}
+            </div>
+          </div>
+          <p></p>
+            <div class="row">
+            <div class="col-md-4">
+              <i class="material-icons">cake</i>{{ d.dob|date:"d M" }}
+            </div>
+            <div class="col-md-8">
+              <i class="material-icons">call</i>{{ d.contact_no }}
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <p class="text-gray" style="margin: 8px 0px 8px 10px">About me : {{ d.about_me|default_if_none:"" }}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

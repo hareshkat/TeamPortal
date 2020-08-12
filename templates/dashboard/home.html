@@ -1,0 +1,184 @@
+{% extends "layouts/base.html" %}
+{% block title %} Home {% endblock %}
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block content %}
+<body onload="md.shoWelcomMsg('top','center')">
+<div class="row" style="border-radius: 10px;background-image: radial-gradient(circle at 28% 36%, #73eab9, #0065bb);">
+  <div class="col-md-6">
+    <div class="text-center" style="margin: 60px 0 0 60px;">
+      <h2 class="tittle_head" style="font-family: auto;"><strong>Jio Enterprise LMS</strong></h2>
+      <p class="main_p mt-4 mb-4 pt-2 text-center mx-auto" style="font-family: auto;font-size: 20px;">Jio LMS team is developing and maintaning a Drupal (Opigno) based E-Learning portal for jio employees and partners. Our focus is on providing the best user experience for our learners. With a team of 15 dedicated & friendly developers we strive every day to improve our LMS and give you excellent support. We do this with a smile, and a cup of coffee in our hands! </p>
+    </div>
+  </div>
+  <div class="col-md-6 text-center">
+    <img src="static/assets/img/lms.png" style="height:400px;width:400px">
+  </div>
+</div>
+</br>
+</br>
+
+<div class="card">
+  <div class="card-header card-header-primary">
+    <p class="card-title">What we do</p>
+    <h3 class="card-category">Build the best LMS that is fun and easy to use.</h3>
+  </div>
+  <div class="card-body text-primary">
+    <strong>The best LMS in the Reliance. That’s our goal. You can create exams, courses, assessments and quizzes or your own Academy. But that’s not where it stops. We aim high, and we like to challenge ourselves, so we can deliver great quality.</strong>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header card-header-rose">
+    <p class="card-title">Who we are</p>
+    <h3 class="card-category">A bunch of smart web developer.</h3>
+  </div>
+  <div class="card-body text-rose">
+    <strong>
+      <p>We are the diverse team that’s working hard to bring Easy LMS to the next level.</p>
+      <p>"We rise by lifting others"</p>
+      <p>"In case of fire: git commit, git push, leave building 😂"</p>
+    </strong>
+    <p><a href="{% url 'team_member' %}">Meet our team ›</a></p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header card-header-warning">
+    <p class="card-title">How we work</p>
+    <h3 class="card-category">Working like a well-oiled machine.</h3>
+  </div>
+  <div class="card-body text-warning">
+    <strong>We give support, we develop new features, we solve bugs. That’s what we do all day😉. To deliver quality, we prioritize our work. In the meantime we learn, grow, and have fun. Because work isn’t always about work.</strong>
+  </div>
+</div>
+</br>
+</br>
+
+<div>
+  <h2 class="text-center">Flavour of LMS</h2>
+  <div class=" row">
+    <div class="col-md-4 text-center" style="border-right: groove;">
+      <h3>Employee LMS</h3>
+      <p>Where the Jio Employees are onboarded.</p>
+    </div>
+    <div class="col-md-4 text-center" style="border-right: groove;">
+      <h3>Partner LMS</h3>
+      <p>Where the Partners of Jio Business are onboarded.</p>
+    </div>
+    <div class="col-md-4 text-center">
+      <h3>Tech LMS</h3>
+      <p>Where the TOPS teams are onboarded.</p>
+    </div>
+  </div>
+</div>
+</br>
+</br>
+
+<div class="container">
+  <div class="card-deck">
+    <div class="card text-center" style="background-image: radial-gradient(circle at 28% 36%, #ff9195, #ff5d63);">
+      <div class="card-header">
+        <h3 class="card-title" style="font-weight: 500;">Easy to use and maintain</h3>
+      </div>
+      <div class="card-body">
+        <h4>Admin can easily create course, lessons and can be assign it to users based on different criteria. And users can easily take these courses and acahive thier learning goal.</h4>
+      </div>
+    </div>
+    <div class="card text-center" style="background-image: radial-gradient(circle at 38% 32%, #7fdee2, #33a6b9);">
+      <div class="card-header">
+        <h3 class="card-title" style="font-weight: 500;">Support with a smile</h3>
+      </div>
+      <div class="card-body">
+        <h4>
+          An online LMS with a human touch. That’s us. Our goal is to make you happy. We love to answer your questions and show you around. Your input makes us better.
+        </h4>
+      </div>
+    </div>
+    <div class="card text-center" style="background-image: radial-gradient(circle at 38% 32%, #f4c652, #d2ac00);">
+      <div class="card-header" >
+        <h3 class="card-title" style="font-weight: 500;">Set up an Academy</h3>
+      </div>
+      <div class="card-body">
+        <h4>
+          LMS is a central place to access all of their training materials. With learning paths, they can complete their training in the order you set for them. From the personal dashboard, they can track their progress through courses and see upcoming exams. Put your team in the driver's seat.
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="card-deck">
+    <div class="card text-center" style="background-image: radial-gradient(circle at 28% 36%, #00dcc3, #00bba6);">
+      <div class="card-header" >
+        <h3 class="card-title" style="font-weight: 500;">Train your employees in their own language</h3>
+      </div>
+      <div class="card-body">
+        <h4>
+          Offering training courses in their own language to optimize their learning experience. The admin dashboard is also available in many languages.
+        </h4>
+      </div>
+    </div>
+    <div class="card text-center" style="background-image: radial-gradient(circle at 28% 36%, #a889f2, #8661df);">
+      <div class="card-header">
+        <h3 class="card-title" style="font-weight: 500;">Manage LMS User Roles in Real Time!</h3>
+      </div>
+      <div class="card-body">
+        <h4>
+          With the Drupal User Management Settings you can control the types of activities users are allowed to perform.
+          You can easily assign and modify user roles to grant independency to user groups working within one Learning Management System, manage course registration and customize user profiles!
+        </h4>
+      </div>
+    </div>
+    <div class="card text-center" style="background-image: radial-gradient(circle at 29% 37%, #ed82cb, #d550ab);">
+      <div class="card-header">
+        <h3 class="card-title" style="font-weight: 500;">Create Online Courses in Minutes</h3>
+      </div>
+      <div class="card-body">
+        <h4>
+          An embedded course builder guides you from one step to another with no need to enter the Admin panel, while a set of predefined eLearning patterns spares you adjusting the modules.
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="card-deck">
+    <div class="card text-center" style="background-image: radial-gradient(circle at 38% 32%, #7fdee2, #33a6b9);">
+      <div class="card-header">
+        <h3 class="card-title" style="font-weight: 500;">Track Learner's Performance to Identify Ways to
+          Improve Your E-Learning!
+        </h3>
+      </div>
+      <div class="card-body">
+        <h4>
+          Don't let your users fall behind by tracking their performance and finding obstacles preventing them from successful course completion.
+        </h4>
+      </div>
+    </div>
+    <div class="card text-center" style="background-image: radial-gradient(circle at 28% 36%, #ff9195, #ff5d63);">
+      <div class="card-header">
+        <h3 class="card-title" style="font-weight: 500;">Transform Education with Mobile Learning</h3>
+      </div>
+      <div class="card-body">
+        <h4>
+          With LMS, learners can access the learning materials wherever they are, using any device they want! The LMS template is tablet and mobile responsive plus there is mobile applications intended for keeping track of the the grades and course information while learners are on the go.
+        </h4>
+      </div>
+    </div>
+    <div class="card text-center" style="background-image: radial-gradient(circle at 38% 32%, #59de9b, #2dc161);">
+      <div class="card-header">
+        <h3 class="card-title" style="font-weight: 500;">Create Events with Mobile App.</h3>
+      </div>
+      <div class="card-body">
+        <h4>
+          Using LMS Mobile application admin can create events like live session, In house training etc. and user can join that sessions using session-id.
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+{% endblock javascripts %}

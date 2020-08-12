@@ -1,0 +1,149 @@
+{% extends "layouts/base.html" %}
+{% block title %} Useful links {% endblock %}
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+{% block content %}
+<div class="row">
+  <div class="col-md-4">
+    <!-- Trigger the modal with a button -->
+    <button type="button" class="btn btn-warning btn-round" data-toggle="modal" data-target="#myModal">
+    <i class="material-icons">add</i> Add new link
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add new Useful Link</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form action="{% url 'usefullink' %}" method="post">
+              {% csrf_token %}
+              <div class="form-group">
+                <span class="col-form-label">Title</span>
+                <input type="text" class="form-control" name="link_title" required>
+              </div>
+              <div class="form-group">
+                <span class="col-form-label">Path</span>
+                <input type="text" class="form-control" name="link_path" required>
+              </div>
+              <input type="text" value="" hidden class="form-control" name="link_id">
+              <button class="btn btn-success">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <form class="navbar-form" method="get">
+      <div class="input-group no-border">
+        <input type="text" name="search" class="form-control" style="margin-top: 12px;" placeholder="Search a link by keywords...">
+        <button type="submit" class="btn btn-warning btn-round btn-just-icon">
+          <i class="material-icons">search</i>
+          <div class="ripple-container"></div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title text-center">Useful Links</h4>
+      </div>
+      <div class="card-body">
+        {% if link %}
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+              <th>ID</th>
+              <th>Title</th>
+              <th>Path</th>
+              <th>Edit</th>
+            </thead>
+            <tbody>
+              {% for d in link %}
+              <tr>
+                <td>{{ d.id }}</td>
+                <td>
+                  <strong>{{ d.title }}</strong>
+                </td>
+                <td>
+                  <a href="{{ d.link }}" target="_blank">{{ d.link }}
+                  <a>
+                </td>
+                <td>
+                <button type="button" class="btn btn-primary btn-link btn-sm" data-toggle="modal" data-target="#myModal{{ d.id }}">
+                <i class="material-icons">edit</i>
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal{{ d.id }}" role="dialog">
+                  <div class="modal-dialog modal-lg">
+                  <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                      <h4 class="modal-title">Edit link</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="{% url 'usefullink' %}" method="post">
+                          {% csrf_token %}
+                          <div class="form-group">
+                            <span class="col-form-label">Title</span>
+                            <input type="text" value="{{ d.title }}" class="form-control" name="link_title" required>
+                          </div>
+                          <div class="form-group">
+                            <span class="col-form-label">Path</span>
+                            <input type="text" value="{{ d.link }}" class="form-control" name="link_path" required>
+                          </div>
+                          <input type="text" value="{{ d.id }}" hidden class="form-control" name="link_id" required>
+                          <button class="btn btn-success">Update</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div>
+          {% if link.has_other_pages %}
+            <ul class="pagination justify-content-center">
+              {% if link.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page={{ link.previous_page_number }}">Previous</a></li>
+              {% else %}
+              <li class="page-item disabled"><a class="page-link">Previous</a></li>
+              {% endif %}
+              {% for i in link.paginator.page_range %}
+              {% if link.number == i %}
+              <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+              {% else %}
+              <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+              {% endif %}
+              {% endfor %}
+              {% if link.has_next %}
+              <li class="page-item"><a class="page-link" href="?page={{ link.next_page_number }}">Next</a></li>
+              {% else %}
+              <li class="page-item disabled"><a class="page-link">Next</a></li>
+              {% endif %}
+            </ul>
+          {% endif %}
+        </div>
+        {% else %}
+        <h5 class="text-center text-warning">No record found !</h5>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+{% endblock javascripts %}
